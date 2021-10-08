@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#SBATCH --job-name=array_align
+#SBATCH --ntasks=32
+#SBATCH --ntasks-per-socket=8
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=8G
+#SBATCH --time=06:00:00
+#SBATCH --qos=6hours
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+#SBATCH --array=1-6
+
+ml purge
+ml bwa-mem2/2.2.1-foss-2018b
+
+(head -$SLURM_ARRAY_TASK_ID commands_align | tail -1)## commands_align file includes list of input files (samples) and output files
+bwa-mem2 mem -t8 -M /data/reference/gch38.fa /data/fastqfiles/sample_1.1.fq /data/fastqfiles/sample_1.2.fq > /alignment/sample_1.sam
+bwa-mem2 mem -t8 -M /data/reference/gch38.fa /data/fastqfiles/sample_2.1.fq /data/fastqfiles/sample_2.2.fq > /alignment/sample_2.sam
+bwa-mem2 mem -t8 -M /data/reference/gch38.fa /data/fastqfiles/sample_3.1.fq /data/fastqfiles/sample_3.2.fq > /alignment/sample_3.sam
+bwa-mem2 mem -t8 -M /data/reference/gch38.fa /data/fastqfiles/sample_4.1.fq /data/fastqfiles/sample_4.2.fq > /alignment/sample_4.sam
+bwa-mem2 mem -t8 -M /data/reference/gch38.fa /data/fastqfiles/sample_5.1.fq /data/fastqfiles/sample_5.2.fq > /alignment/sample_5.sam
+bwa-mem2 mem -t8 -M /data/reference/gch38.fa /data/fastqfiles/sample_6.1.fq /data/fastqfiles/sample_6.2.fq > /alignment/sample_6.sam
