@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#SBATCH --job-name=array_bqsr
+#SBATCH --ntasks=12
+#SBATCH --ntasks-per-socket=5
+#SBATCH --cpus-per-task=3
+#SBATCH --mem-per-cpu=5G
+#SBATCH --time=24:00:00
+#SBATCH --qos=1day
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+#SBATCH --array=1-5
+ml purge
+ml GATK/4.2.2.0-foss-2018b-Java-1.8
+(head -$SLURM_ARRAY_TASK_ID commands_bqsr | tail -1)
+gatk ApplyBQSR \
+  -R /data/reference/gch38.fa \
+  -I /alignment/duplicate/sample_1_dedup.bam \
+  --bqsr-recal-file /alignment/bqsr/sample_1_recal_data.table \
+  -O /alignment/bqsr/sample_1_recal.bam
+
+gatk ApplyBQSR \
+  -R /data/reference/gch38.fa \
+  -I /alignment/duplicate/sample_2_dedup.bam \
+  --bqsr-recal-file /alignment/bqsr/sample_2_recal_data.table \
+  -O /alignment/bqsr/sample_2_recal.bam
+  
+  gatk ApplyBQSR \
+  -R /data/reference/gch38.fa \
+  -I /alignment/duplicate/sample_3_dedup.bam \
+  --bqsr-recal-file /alignment/bqsr/sample_3_recal_data.table \
+  -O /alignment/bqsr/sample_3_recal.bam
+  
+  gatk ApplyBQSR \
+  -R /data/reference/gch38.fa \
+  -I /alignment/duplicate/sample_4_dedup.bam \
+  --bqsr-recal-file /alignment/bqsr/sample_4_recal_data.table \
+  -O /alignment/bqsr/sample_4_recal.bam
+  
+  gatk ApplyBQSR \
+  -R /data/reference/gch38.fa \
+  -I /alignment/duplicate/sample_5_dedup.bam \
+  --bqsr-recal-file /alignment/bqsr/sample_5_recal_data.table \
+  -O /alignment/bqsr/sample_5_recal.bam
+  
+  gatk ApplyBQSR \
+  -R /data/reference/gch38.fa \
+  -I /alignment/duplicate/sample_6_dedup.bam \
+  --bqsr-recal-file /alignment/bqsr/sample_6_recal_data.table \
+  -O /alignment/bqsr/sample_6_recal.bam
