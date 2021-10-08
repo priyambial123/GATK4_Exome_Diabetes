@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#SBATCH --job-name=array_rg
+#SBATCH --ntasks=32
+#SBATCH --ntasks-per-socket=8
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=8G
+#SBATCH --time=04:00:00
+#SBATCH --qos=6hours
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+#SBATCH --array=1-6
+
+ml purge
+ml picard/2.9.2
+
+(head -$SLURM_ARRAY_TASK_ID commands_rg | tail -1)
+java -jar $EBROOTPICARD/picard.jar AddOrReplaceReadGroups \
+  INPUT=/alignment/sample_1.sam  OUTPUT=/alignment/sample_1.bam SORT_ORDER=coordinate \
+  RGID=A00684.1 RGLB=P2021 RGPL=ILLUMINA RGPU=A00684:110:H2TYCDMXY:1 RGSM=sample_1
+  
+  java -jar $EBROOTPICARD/picard.jar AddOrReplaceReadGroups \
+  INPUT=/alignment/sample_2.sam  OUTPUT=/alignment/sample_2.bam SORT_ORDER=coordinate \
+  RGID=A00684.2 RGLB=P2021 RGPL=ILLUMINA RGPU=A00684:110:H2TYCDMXY:2 RGSM=sample_3
+  
+  java -jar $EBROOTPICARD/picard.jar AddOrReplaceReadGroups \
+  INPUT=/alignment/sample_3.sam  OUTPUT=/alignment/sample_3.bam SORT_ORDER=coordinate \
+  RGID=A00684.3 RGLB=P2021 RGPL=ILLUMINA RGPU=A00684:110:H2TYCDMXY:3 RGSM=sample_3
+  
+  java -jar $EBROOTPICARD/picard.jar AddOrReplaceReadGroups \
+  INPUT=/alignment/sample_4.sam  OUTPUT=/alignment/sample_4.bam SORT_ORDER=coordinate \
+  RGID=A00684.4 RGLB=P2021 RGPL=ILLUMINA RGPU=A00684:110:H2TYCDMXY:4 RGSM=sample_4
+  
+  java -jar $EBROOTPICARD/picard.jar AddOrReplaceReadGroups \
+  INPUT=/alignment/sample_5.sam  OUTPUT=/alignment/sample_5.bam SORT_ORDER=coordinate \
+  RGID=A00684.5 RGLB=P2021 RGPL=ILLUMINA RGPU=A00684:110:H2TYCDMXY:5 RGSM=sample_5
+  
+  java -jar $EBROOTPICARD/picard.jar AddOrReplaceReadGroups \
+  INPUT=/alignment/sample_6.sam  OUTPUT=/alignment/sample_6.bam SORT_ORDER=coordinate \
+  RGID=A00684.6 RGLB=P2021 RGPL=ILLUMINA RGPU=A00684:110:H2TYCDMXY:6 RGSM=sample_6 
+
