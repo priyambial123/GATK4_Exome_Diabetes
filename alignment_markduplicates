@@ -19,5 +19,5 @@ java -jar $EBROOTPICARD/picard.jar AddOrReplaceReadGroups \
   INPUT=/alignment/sample1_.sam  OUTPUT=/alignment/sample_1.bam SORT_ORDER=coordinate \
   RGID=A00684.1 RGLB=P2021 RGPL=ILLUMINA RGPU=A00684:110:H2TYCXY:1 RGSM=Sample1_1
 
-java -jar $EBROOTPICARD/picard.jar MarkDuplicates INPUT=/alignment/sample_1.bam OUTPUT=/scicore/home/cichon/GROUP/memory_optimization/alignment/duplicate/sample_1_dedup.bam METRICS_FILE=/scicore/home/cichon/GROUP/memory_optimization/alignment/duplicate/sample_1_dedupmetrics.txt  
-java -jar $EBROOTPICARD/picard.jar BuildBamIndex INPUT=/scicore/home/cichon/GROUP/memory_optimization/alignment/duplicate/sample_1_dedup.bam
+java -jar $EBROOTPICARD/picard.jar MarkDuplicates INPUT=/alignment/sample_1.bam OUTPUT=/alignment/duplicate/sample_1_dedup.bam METRICS_FILE=/alignment/duplicate/sample_1_dedupmetrics.txt  
+java -jar $EBROOTPICARD/picard.jar BuildBamIndex INPUT=/alignment/duplicate/sample_1_dedup.bam
