@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#SBATCH --job-name=array_index
+#SBATCH --ntasks=32
+#SBATCH --ntasks-per-socket=8
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=8G
+#SBATCH --time=06:00:00
+#SBATCH --qos=6hours
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+#SBATCH --array=1-6
+
+ml purge
+ml picard/2.9.2
+
+java -jar $EBROOTPICARD/picard.jar BuildBamIndex INPUT=/alignment/duplicate/1_dedup.bam
+java -jar $EBROOTPICARD/picard.jar BuildBamIndex INPUT=/alignment/duplicate/2_dedup.bam
+java -jar $EBROOTPICARD/picard.jar BuildBamIndex INPUT=/alignment/duplicate/3_dedup.bam
+java -jar $EBROOTPICARD/picard.jar BuildBamIndex INPUT=/alignment/duplicate/4_dedup.bam
+java -jar $EBROOTPICARD/picard.jar BuildBamIndex INPUT=/alignment/duplicate/5_dedup.bam
+java -jar $EBROOTPICARD/picard.jar BuildBamIndex INPUT=/alignment/duplicate/6_dedup.bam
