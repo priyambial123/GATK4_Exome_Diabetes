@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#SBATCH --job-name=array_dup
+#SBATCH --ntasks=32
+#SBATCH --ntasks-per-socket=8
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=8G
+#SBATCH --time=06:00:00
+#SBATCH --qos=6hours
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+#SBATCH --array=1-6
+
+ml purge
+ml picard/2.9.2
+
+(head -$SLURM_ARRAY_TASK_ID commands_dup | tail -1)
+java -jar $EBROOTPICARD/picard.jar MarkDuplicates INPUT=/alignment/sample_1.bam OUTPUT=/alignment/duplicate/sample_1_dedup.bam METRICS_FILE=/alignment/duplicate/sample_1_dedupmetrics.txt
+java -jar $EBROOTPICARD/picard.jar MarkDuplicates INPUT=/alignment/sample_2.bam OUTPUT=/alignment/duplicate/sample_2_dedup.bam METRICS_FILE=/alignment/duplicate/sample_2_dedupmetrics.txt
+java -jar $EBROOTPICARD/picard.jar MarkDuplicates INPUT=/alignment/sample_3.bam OUTPUT=/alignment/duplicate/sample_3_dedup.bam METRICS_FILE=/alignment/duplicate/sample_3_dedupmetrics.txt
+java -jar $EBROOTPICARD/picard.jar MarkDuplicates INPUT=/alignment/sample_4.bam OUTPUT=/alignment/duplicate/sample_4_dedup.bam METRICS_FILE=/alignment/duplicate/sample_4_dedupmetrics.txt
+java -jar $EBROOTPICARD/picard.jar MarkDuplicates INPUT=/alignment/sample_5.bam OUTPUT=/alignment/duplicate/sample_5_dedup.bam METRICS_FILE=/alignment/duplicate/sample_5_dedupmetrics.txt
+java -jar $EBROOTPICARD/picard.jar MarkDuplicates INPUT=/alignment/sample_6.bam OUTPUT=/alignment/duplicate/sample_6_dedup.bam METRICS_FILE=/alignment/duplicate/sample_6_dedupmetrics.txt
