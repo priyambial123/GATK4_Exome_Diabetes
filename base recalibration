@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=recal_sample9
+#SBATCH --job-name=recal_sample1
 #SBATCH --ntasks=4
 #SBATCH --ntasks-per-socket=4
 #SBATCH --cpus-per-task=3
