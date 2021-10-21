@@ -1,0 +1,24 @@
+###https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?pli=1&prefix=&forceOnObjectsSortingFiltering=false
+
+####https://console.cloud.google.com/storage/browser/_details/genomics-public-data/resources/broad/hg38/v0/hapmap_3.3.hg38.vcf.gz
+####https://console.cloud.google.com/storage/browser/_details/genomics-public-data/resources/broad/hg38/v0/1000G_omni2.5.hg38.vcf.gz
+
+#!/bin/bash
+
+#SBATCH --job-name=create_index
+#SBATCH --ntasks=6
+#SBATCH --ntasks-per-socket=3
+#SBATCH --cpus-per-task=3
+#SBATCH --mem-per-cpu=2G
+#SBATCH --time=3-00:00:00
+#SBATCH --qos=1week
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+ml purge
+ml GATK/4.2.2.0-foss-2018b-Java-1.8
+
+ gatk IndexFeatureFile \
+     -I resources_broad_hg38_v0_hapmap_3.3.hg38.vcf.gz
+     
+ gatk IndexFeatureFile \
+     -I resources_broad_hg38_v0_1000G_omni2.5.hg38.vcf.gz 
