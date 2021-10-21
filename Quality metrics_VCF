@@ -7,7 +7,7 @@
 #SBATCH --qos=1week
 #SBATCH --output=myoutput%A_%a.out
 #SBATCH --error=myerror%A_%a.err
-#SBATCH --array=1-5
+#SBATCH --array=1-6
 
 ml purge
 ml GATK/4.2.2.0-foss-2018b-Java-1.8
@@ -18,3 +18,5 @@ java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variant
 java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_4.vcf.gz" OUTPUT="/variants/sample_4metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
 java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_5.vcf.gz" OUTPUT="/variants/sample_5metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
 java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_6.vcf.gz" OUTPUT="/variants/sample_6metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
+
+##before filtering STEP, CNNScoreVariants
