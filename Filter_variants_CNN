@@ -15,7 +15,7 @@
 #SBATCH --output=myoutput%A_%a.out
 #SBATCH --error=myerror%A_%a.err
 ml purge
-ml GATK/4.2.2.0-foss-2018b-Java-1.8
+ml picard/2.9.2
 
  gatk IndexFeatureFile \
      -I resources_broad_hg38_v0_hapmap_3.3.hg38.vcf.gz
