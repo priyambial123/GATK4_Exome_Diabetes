@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#SBATCH --job-name=variantcall_metrics
+#SBATCH --cpus-per-task=2
+#SBATCH --mem-per-cpu=2G
+#SBATCH --time=3-00:00:00
+#SBATCH --qos=1week
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+#SBATCH --array=1-5
+
+ml purge
+ml GATK/4.2.2.0-foss-2018b-Java-1.8
+
+java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_1.vcf.gz" OUTPUT="/variants/sample_1metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
+java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_2.vcf.gz" OUTPUT="/variants/sample_2metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
+java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_3.vcf.gz" OUTPUT="/variants/sample_3metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
+java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_4.vcf.gz" OUTPUT="/variants/sample_4metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
+java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_5.vcf.gz" OUTPUT="/variants/sample_5metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
+java -jar $EBROOTPICARD/picard.jar  CollectVariantCallingMetrics INPUT="/variants/sample_6.vcf.gz" OUTPUT="/variants/sample_6metrics.vcf.gz" DBSNP="/data/index_dict/GCF_000001405.39_newcontiglines.vcf.gz"
