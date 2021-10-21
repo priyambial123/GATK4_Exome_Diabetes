@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#SBATCH --job-name=haplotypecaller
+#SBATCH --ntasks=6
+#SBATCH --ntasks-per-socket=5
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=2G
+#SBATCH --time=3-00:00:00
+#SBATCH --qos=1week
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+#SBATCH --array=1-6
+
+ml purge
+ml GATK/4.2.2.0-foss-2018b-Java-1.8
+(head -$SLURM_ARRAY_TASK_ID commands_vcf | tail -1)
+
+ gatk --java-options "-Xmx4g" HaplotypeCaller  \
+   -R /data/reference/gch38.fa \
+   -I /alignment/bqsr/sample_1_recal.bam \
+   -O /variants/sample_1.vcf.gz \
+   -bamout /variants/sample_1.bamout.bam
+   
+ gatk --java-options "-Xmx4g" HaplotypeCaller  \
+   -R /data/reference/gch38.fa \
+   -I /alignment/bqsr/sample_2_recal.bam \
+   -O /variants/sample_2.vcf.gz \
+   -bamout /variants/sample_2.bamout.bam
+   
+ gatk --java-options "-Xmx4g" HaplotypeCaller  \
+   -R /data/reference/gch38.fa \
+   -I /alignment/bqsr/sample_3_recal.bam \
+   -O /variants/sample_3.vcf.gz \
+   -bamout /variants/sample_3.bamout.bam
+   
+ gatk --java-options "-Xmx4g" HaplotypeCaller  \
+   -R /data/reference/gch38.fa \
+   -I /alignment/bqsr/sample_4_recal.bam \
+   -O /variants/sample_4.vcf.gz \
+   -bamout /variants/sample_4.bamout.bam
+   
+ gatk --java-options "-Xmx4g" HaplotypeCaller  \
+   -R /data/reference/gch38.fa \
+   -I /alignment/bqsr/sample_5_recal.bam \
+   -O /variants/sample_5.vcf.gz \
+   -bamout /variants/sample_5.bamout.bam
+   
+ gatk --java-options "-Xmx4g" HaplotypeCaller  \
+   -R /data/reference/gch38.fa \
+   -I /alignment/bqsr/sample_6_recal.bam \
+   -O /variants/sample_6.vcf.gz \
+   -bamout /variants/sample_6.bamout.bam  
