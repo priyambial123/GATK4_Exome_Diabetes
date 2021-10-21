@@ -1,0 +1,3 @@
+###https://www.ncbi.nlm.nih.gov/assembly/GCF_000001405.39
+ml bwa-mem2/2.2.1-foss-2018b
+bwa-mem2 index grch38.fa 
