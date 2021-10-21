@@ -1,0 +1,4 @@
+samtools flagstat sample1_aligned.sam ###quality of aligned sam file to reference
+
+
+      
