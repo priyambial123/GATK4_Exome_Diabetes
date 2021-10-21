@@ -1,0 +1,6 @@
+###GCF_000001405.25.gz   https://ftp.ncbi.nih.gov/snp/latest_release/VCF/
+
+ml GATK/4.2.2.0-foss-2018b-Java-1.8
+gatk  UpdateVCFSequenceDictionary -V GCF_000001405.39.gz --source-dictionary gch38.dict --output GCF_000001405.39_newcontiglines.vcf.gz
+gatk IndexFeatureFile \
+  -I GCF_000001405.39_newcontiglines.vcf.gz
