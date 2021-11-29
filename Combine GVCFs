@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#SBATCH --job-name=combineGVCFs
+#SBATCH --cpus-per-task=3
+#SBATCH --mem-per-cpu=8G
+#SBATCH --time=3-00:00:00
+#SBATCH --qos=1week
+#SBATCH --output=myoutput%A_%a.out
+#SBATCH --error=myerror%A_%a.err
+
+ml purge
+ml GATK/4.2.2.0-foss-2018b-Java-1.8
+ gatk CombineGVCFs \
+   -R /data/reference/gch38.fa \
+   --variant /variants/1.g.vcf.gz \
+   --variant /variants/2.g.vcf.gz \
+   --variant /variants/3.g.vcf.gz \
+   --variant /variants/4.g.vcf.gz \
+   --variant /variants/5.g.vcf.gz \
+   --variant /variants/6.g.vcf.gz \
+   -O /variants/cohort.g.vcf.gz
